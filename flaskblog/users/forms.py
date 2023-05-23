@@ -4,7 +4,10 @@ from flask_wtf.file import FileField,FileAllowed
 from wtforms import StringField,PasswordField,SubmitField,BooleanField,TextAreaField
 from wtforms.validators import DataRequired,Length,Email,EqualTo,ValidationError
 from flaskblog.models import User
-  
+from flaskblog.users.utils import save_picture
+
+
+
 # ========================================
 # ==========RegistrationForm==============
 # ========================================
@@ -60,12 +63,3 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('that email is already taken try another one')
-
-# ========================================
-# ==========Post Form==============
-# ========================================
-
-class PostForm(FlaskForm):
-    title = StringField('title',validators=[DataRequired()])
-    content = TextAreaField('Content',validators=[DataRequired()])
-    submit = SubmitField('Post')
